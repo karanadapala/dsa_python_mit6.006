@@ -1,3 +1,8 @@
+'''
+In this lecture version of insertion sort and merge sort were covered.
+Optimized version of insertion sort would use binary search to swap the numbers.
+'''
+
 class Lecture3():
     def __init__(self, arr):
         self.arr = arr
