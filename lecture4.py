@@ -8,11 +8,10 @@ iii. Heap_Sort
 
 A Heap is an array representation of a binary tree, where if element 'x' of the heap 'S' is at 'i' (where i starts from 1 to n), then:
   i. x's parent is at the floor of i/2 (i.e x//2)
- ii. x's left child is at 2^i
-iii. x's right child is at 2^1+1
+ ii. x's left child is at 2*i
+iii. x's right child is at 2*1+1
 
 '''
-from collections import deque
 
 class Heap():
     def __init__(self, arr: list):
