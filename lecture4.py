@@ -16,13 +16,8 @@ from collections import deque
 
 class Heap():
     def __init__(self, arr: list):
-        self.heap = self.heapify(arr)
-    '''
-    Objectives:
-    insert
-    extract
-    sort 
-    '''
+        self.arr = self.heapify(arr)
+
     def heapify(self, arr: list):
         def recursiv_swap(self, ind, arr, num):
             if ind == 1 or num < arr[(ind)//2-1]:
@@ -34,14 +29,47 @@ class Heap():
                 arr[ind-1] = recursiv_swap(self, ind//2, arr, num)
                 return temp
 
-        for i in range(1, len(arr)+1):
+        for i in range(2, len(arr)+1):
             if arr[(i//2)-1] < arr[i-1]:
                 arr[i-1] = recursiv_swap(self, i//2, arr, arr[i-1])
         return arr
 
     def insert(self, num: int or float):
-        return 
+        self.arr.append(num)
+        self.arr = self.heapify(self.arr)
+        return
 
+    def extract_max(self):
+        if len(self.arr) == 0:
+            return 'nothing in heap :('
+        maxx = self.arr[0]
+        if len(self.arr) > 2:
+            if self.arr[1] > self.arr[2]:
+                self.arr[0] = self.arr[1]
+                self.arr.pop(1)
+            else:
+                self.arr[0] = self.arr[2]
+                self.arr.pop(2)
+            self.arr = self.heapify(self.arr)
+        elif len(self.arr)==2:
+            self.arr = self.arr[1:]
+        return maxx
 
-ds = Heap([1,2,3,4,5,6,7])
-print(ds.heap) # [7, 4, 6, 1, 3, 2, 5]
+    def sort(self):
+        lt = len(self.arr)
+        init = 0
+        out_arr = []
+        while init < lt:
+            out_arr.append(self.extract_max())
+            init += 1
+        self.arr = out_arr # Already in descending order --> no need to Heapify.
+        return out_arr
+
+heap = Heap([1,2,3,4,5,6,7])
+print(heap.arr) # [7, 4, 6, 1, 3, 2, 5]
+heap.insert(8)
+print(heap.arr) # [8, 7, 6, 4, 3, 2, 5, 1]
+print(heap.extract_max()) # 8
+print(heap.arr) # [7, 6, 5, 3, 2, 4, 1]
+print(heap.sort()) # [7, 6, 5, 4, 3, 2, 1]
+print(heap.arr) # [7, 6, 5, 4, 3, 2, 1]
